@@ -9,5 +9,5 @@
 import Foundation
 import TensorFlow
 
-print("Hello, World!")
-
+var x = Tensor<Float>([[1, 2], [3, 4]])
+print(x * 3)

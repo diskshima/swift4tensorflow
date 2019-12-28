@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		021B437A23B7175700FAA808 /* tutorial */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tutorial; sourceTree = BUILT_PRODUCTS_DIR; };
 		021B437D23B7175700FAA808 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		02730E2E23B71A64009F7992 /* tutorial.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tutorial.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		021B437C23B7175700FAA808 /* tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				02730E2E23B71A64009F7992 /* tutorial.entitlements */,
 				021B437D23B7175700FAA808 /* main.swift */,
 			);
 			path = tutorial;
@@ -243,6 +245,7 @@
 		021B438223B7175700FAA808 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = tutorial/tutorial.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F23E3WE55A;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -254,6 +257,7 @@
 		021B438323B7175700FAA808 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = tutorial/tutorial.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F23E3WE55A;
 				ENABLE_HARDENED_RUNTIME = YES;
