@@ -11,3 +11,16 @@ import TensorFlow
 
 var x = Tensor<Float>([[1, 2], [3, 4]])
 print(x * 3)
+
+func download(from sourceString: String, to destinationString: String) {
+    let source = URL(string: sourceString)!
+    let destination = URL(fileURLWithPath: destinationString)
+    let data = try! Data.init(contentsOf: source)
+    try! data.write(to: destination)
+}
+
+download(
+    from: "https://raw.githubusercontent.com/tensorflow/swift/master/docs/site/tutorials/TutorialDatasetCSVAPI.swift",
+    to: "TutorialDatasetCSVAPI.swift")
+
+print("File downloaded to \(FileManager.default.currentDirectoryPath)")
