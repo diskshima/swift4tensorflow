@@ -19,8 +19,18 @@ func download(from sourceString: String, to destinationString: String) {
     try! data.write(to: destination)
 }
 
-download(
-    from: "https://raw.githubusercontent.com/tensorflow/swift/master/docs/site/tutorials/TutorialDatasetCSVAPI.swift",
-    to: "TutorialDatasetCSVAPI.swift")
+//download(
+//    from: "https://raw.githubusercontent.com/tensorflow/swift/master/docs/site/tutorials/TutorialDatasetCSVAPI.swift",
+//    to: "TutorialDatasetCSVAPI.swift")
+//print("File downloaded to \(FileManager.default.currentDirectoryPath)")
 
-print("File downloaded to \(FileManager.default.currentDirectoryPath)")
+let trainDataFilename = "iris_training.csv"
+download(from: "http://download.tensorflow.org/data/iris_training.csv", to: trainDataFilename)
+
+import Python
+
+let f = Python.open(trainDataFilename)
+for _ in 0..<5 {
+    print(Python.next(f).strip())
+}
+f.close()
