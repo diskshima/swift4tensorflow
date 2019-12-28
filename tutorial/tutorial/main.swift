@@ -17,12 +17,12 @@ func download(from sourceString: String, to destinationString: String) {
     let destination = URL(fileURLWithPath: destinationString)
     let data = try! Data.init(contentsOf: source)
     try! data.write(to: destination)
+    print("Downloaded \(destinationString) to \(FileManager.default.currentDirectoryPath)")
 }
 
-//download(
-//    from: "https://raw.githubusercontent.com/tensorflow/swift/master/docs/site/tutorials/TutorialDatasetCSVAPI.swift",
-//    to: "TutorialDatasetCSVAPI.swift")
-//print("File downloaded to \(FileManager.default.currentDirectoryPath)")
+download(
+    from: "https://raw.githubusercontent.com/tensorflow/swift/master/docs/site/tutorials/TutorialDatasetCSVAPI.swift",
+    to: "TutorialDatasetCSVAPI.swift")
 
 let trainDataFilename = "iris_training.csv"
 download(from: "http://download.tensorflow.org/data/iris_training.csv", to: trainDataFilename)
