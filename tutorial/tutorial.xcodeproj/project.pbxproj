@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		021B437E23B7175700FAA808 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B437D23B7175700FAA808 /* main.swift */; };
 		02730E3023B861AE009F7992 /* TutorialDatasetCSVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02730E2F23B861AE009F7992 /* TutorialDatasetCSVAPI.swift */; };
+		02730E3223B86518009F7992 /* IrisBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02730E3123B86518009F7992 /* IrisBatch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		021B437D23B7175700FAA808 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		02730E2E23B71A64009F7992 /* tutorial.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tutorial.entitlements; sourceTree = "<group>"; };
 		02730E2F23B861AE009F7992 /* TutorialDatasetCSVAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialDatasetCSVAPI.swift; sourceTree = "<group>"; };
+		02730E3123B86518009F7992 /* IrisBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisBatch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				02730E2F23B861AE009F7992 /* TutorialDatasetCSVAPI.swift */,
 				02730E2E23B71A64009F7992 /* tutorial.entitlements */,
 				021B437D23B7175700FAA808 /* main.swift */,
+				02730E3123B86518009F7992 /* IrisBatch.swift */,
 			);
 			path = tutorial;
 			sourceTree = "<group>";
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02730E3023B861AE009F7992 /* TutorialDatasetCSVAPI.swift in Sources */,
+				02730E3223B86518009F7992 /* IrisBatch.swift in Sources */,
 				021B437E23B7175700FAA808 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

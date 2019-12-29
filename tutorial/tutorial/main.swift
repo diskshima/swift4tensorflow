@@ -34,3 +34,18 @@ for _ in 0..<5 {
     print(Python.next(f).strip())
 }
 f.close()
+
+let featureNames = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+let labelName = "species"
+let columnNames = featureNames + [labelName]
+print("Features: \(featureNames)")
+print("Label: \(labelName)")
+
+let classNames = ["Iris setosa", "Iris versicolor", "Iris virginica"]
+
+let batchSize = 32
+
+let trainDataset: Dataset<IrisBatch> = Dataset(
+    contentsOfCSVFile: trainDataFilename, hasHeader: true,
+    featureColumns: [0, 1, 2, 3], labelColumns: [4]
+).batched(batchSize)
