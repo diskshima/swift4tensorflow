@@ -113,3 +113,40 @@ optimizer.update(&model, along: grads)
 let logitsAfterOneStep = model(firstTrainFeatures)
 let lossAfterOneStep = softmaxCrossEntropy(logits: logitsAfterOneStep, labels: firstTrainLabels)
 print("Next loss: \(lossAfterOneStep)")
+
+// Training loop
+let epochCount = 500
+var trainAccuracyResults: [Float] = []
+var trainLossResults: [Float] = []
+
+func accuracy(predictions: Tensor<Int32>, truths: Tensor<Int32>) -> Float {
+    return Tensor<Float>(predictions .== truths).mean().scalarized()
+}
+
+for epoch in 1...epochCount {
+    var epochLoss: Float = 0
+    var epochAccuracy: Float = 0
+    var batchCount: Int = 0
+    for batch in trainDataset {
+        let (loss, grad) = model.valueWithGradient { (model: IrisModel) -> Tensor<Float> in
+            let logits = model(batch.features)
+            return softmaxCrossEntropy(logits: logits, labels: batch.labels)
+        }
+
+        optimizer.update(&model, along: grad)
+
+        let logits = model(batch.features)
+        epochAccuracy += accuracy(predictions: logits.argmax(squeezingAxis: 1), truths: batch.labels)
+        epochLoss += loss.scalarized()
+        batchCount += 1
+    }
+
+    epochAccuracy /= Float(batchCount)
+    epochLoss /= Float(batchCount)
+    trainAccuracyResults.append(epochAccuracy)
+    trainLossResults.append(epochLoss)
+
+    if epoch % 50 == 0 {
+        print("Epoch \(epoch): Loss: \(epochLoss), Accuracy: \(epochAccuracy)")
+    }
+}
