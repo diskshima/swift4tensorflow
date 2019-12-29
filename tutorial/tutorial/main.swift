@@ -64,9 +64,10 @@ let firstTrainLabels = firstTrainExamples.labels
 print("First batch of features: \(firstTrainFeatures)")
 print("First batch of labels: \(firstTrainLabels)")
 
-let firstTrainFeaturesTransposed = firstTrainFeatures.transposed()
-let petalLengths = firstTrainFeaturesTransposed[2].scalars
-let sepalLengths = firstTrainFeaturesTransposed[0].scalars
+// Show scatter plot
+//let firstTrainFeaturesTransposed = firstTrainFeatures.transposed()
+//let petalLengths = firstTrainFeaturesTransposed[2].scalars
+//let sepalLengths = firstTrainFeaturesTransposed[0].scalars
 
 //plt.scatter(petalLengths, sepalLengths, c: firstTrainLabels.array.scalars)
 //plt.xlabel("Petal length")
@@ -94,3 +95,21 @@ print(softmax(firstTrainPredictions[0..<5]))
 
 print("Predictions: \(firstTrainPredictions.argmax(squeezingAxis: 1))")
 print("     Labels: \(firstTrainLabels)")
+
+// Loss function example
+let untrainedLogits = model(firstTrainFeatures)
+let untrainedLoss = softmaxCrossEntropy(logits: untrainedLogits, labels: firstTrainLabels)
+print("Loss test: \(untrainedLoss)")
+
+// SGD
+let optimizer = SGD(for: model, learningRate: 0.01)
+let (loss, grads) = model.valueWithGradient { model -> Tensor<Float> in
+    let logits = model(firstTrainFeatures)
+    return softmaxCrossEntropy(logits: logits, labels: firstTrainLabels)
+}
+print("Current loss: \(loss)")
+
+optimizer.update(&model, along: grads)
+let logitsAfterOneStep = model(firstTrainFeatures)
+let lossAfterOneStep = softmaxCrossEntropy(logits: logitsAfterOneStep, labels: firstTrainLabels)
+print("Next loss: \(lossAfterOneStep)")
