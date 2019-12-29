@@ -13,11 +13,19 @@ var x = Tensor<Float>([[1, 2], [3, 4]])
 print(x * 3)
 
 func download(from sourceString: String, to destinationString: String) {
+    print("Downloading \(sourceString)")
     let source = URL(string: sourceString)!
+
+    let fm = FileManager.default
+    if fm.fileExists(atPath: destinationString) {
+        print("File already exists. Not downloading.")
+        return
+    }
+
     let destination = URL(fileURLWithPath: destinationString)
     let data = try! Data.init(contentsOf: source)
     try! data.write(to: destination)
-    print("Downloaded \(destination.lastPathComponent) to \(FileManager.default.currentDirectoryPath)")
+    print("Downloaded \(destination.lastPathComponent) to \(fm.currentDirectoryPath)")
 }
 
 download(
