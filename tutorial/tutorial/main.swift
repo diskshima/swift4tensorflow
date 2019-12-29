@@ -8,6 +8,8 @@
 
 import Foundation
 import TensorFlow
+import Python
+let plt = Python.import("matplotlib.pyplot")
 
 var x = Tensor<Float>([[1, 2], [3, 4]])
 print(x * 3)
@@ -35,8 +37,6 @@ download(
 let trainDataFilename = "iris_training.csv"
 download(from: "http://download.tensorflow.org/data/iris_training.csv", to: trainDataFilename)
 
-import Python
-
 let f = Python.open(trainDataFilename)
 for _ in 0..<5 {
     print(Python.next(f).strip())
@@ -57,3 +57,18 @@ let trainDataset: Dataset<IrisBatch> = Dataset(
     contentsOfCSVFile: trainDataFilename, hasHeader: true,
     featureColumns: [0, 1, 2, 3], labelColumns: [4]
 ).batched(batchSize)
+
+let firstTrainExamples = trainDataset.first!
+let firstTrainFeatures = firstTrainExamples.features
+let firstTrainLabels = firstTrainExamples.labels
+print("First batch of features: \(firstTrainFeatures)")
+print("First batch of labels: \(firstTrainLabels)")
+
+let firstTrainFeaturesTransposed = firstTrainFeatures.transposed()
+let petalLengths = firstTrainFeaturesTransposed[2].scalars
+let sepalLengths = firstTrainFeaturesTransposed[0].scalars
+
+plt.scatter(petalLengths, sepalLengths, c: firstTrainLabels.array.scalars)
+plt.xlabel("Petal length")
+plt.ylabel("Sepal length")
+plt.show()
