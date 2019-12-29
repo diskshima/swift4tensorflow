@@ -13,6 +13,9 @@
 /// This file contains some special-case APIs that make parts of the tutorial work even though we
 /// do not have general APIs. Soon, we will have general APIs replacing this.
 
+import TensorFlow
+import Python
+
 /// Conform `IrisBatch` to `TensorGroup` so that we can load it into a `Dataset`.
 extension IrisBatch: TensorGroup {
     public static var _typeList: [TensorDataType] = [
