@@ -68,7 +68,29 @@ let firstTrainFeaturesTransposed = firstTrainFeatures.transposed()
 let petalLengths = firstTrainFeaturesTransposed[2].scalars
 let sepalLengths = firstTrainFeaturesTransposed[0].scalars
 
-plt.scatter(petalLengths, sepalLengths, c: firstTrainLabels.array.scalars)
-plt.xlabel("Petal length")
-plt.ylabel("Sepal length")
-plt.show()
+//plt.scatter(petalLengths, sepalLengths, c: firstTrainLabels.array.scalars)
+//plt.xlabel("Petal length")
+//plt.ylabel("Sepal length")
+//plt.show()
+
+// Build neural network model
+let hiddenSize: Int = 10
+struct IrisModel: Layer {
+    var layer1 = Dense<Float>(inputSize: 4, outputSize: hiddenSize, activation: relu)
+    var layer2 = Dense<Float>(inputSize: hiddenSize, outputSize: hiddenSize, activation: relu)
+    var layer3 = Dense<Float>(inputSize: hiddenSize, outputSize: 3)
+
+    @differentiable
+    func callAsFunction(_ input: Tensor<Float>) -> Tensor<Float> {
+        return input.sequenced(through: layer1, layer2, layer3)
+    }
+}
+
+var model = IrisModel()
+
+let firstTrainPredictions = model(firstTrainFeatures)
+print(firstTrainPredictions[0..<5])
+print(softmax(firstTrainPredictions[0..<5]))
+
+print("Predictions: \(firstTrainPredictions.argmax(squeezingAxis: 1))")
+print("     Labels: \(firstTrainLabels)")
