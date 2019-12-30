@@ -150,3 +150,16 @@ for epoch in 1...epochCount {
         print("Epoch \(epoch): Loss: \(epochLoss), Accuracy: \(epochAccuracy)")
     }
 }
+
+// Show result plot
+plt.figure(figsize: [12, 8])
+let accuracyAxes = plt.subplot(2, 1, 1)
+accuracyAxes.set_ylabel("Accuracy")
+accuracyAxes.plot(trainAccuracyResults)
+
+let lossAxes = plt.subplot(2, 1, 2)
+lossAxes.set_ylabel("Loss")
+lossAxes.set_xlabel("Epoch")
+lossAxes.plot(trainLossResults)
+
+plt.show()
