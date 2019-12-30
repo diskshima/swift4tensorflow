@@ -152,14 +152,36 @@ for epoch in 1...epochCount {
 }
 
 // Show result plot
-plt.figure(figsize: [12, 8])
-let accuracyAxes = plt.subplot(2, 1, 1)
-accuracyAxes.set_ylabel("Accuracy")
-accuracyAxes.plot(trainAccuracyResults)
+//plt.figure(figsize: [12, 8])
+//let accuracyAxes = plt.subplot(2, 1, 1)
+//accuracyAxes.set_ylabel("Accuracy")
+//accuracyAxes.plot(trainAccuracyResults)
+//
+//let lossAxes = plt.subplot(2, 1, 2)
+//lossAxes.set_ylabel("Loss")
+//lossAxes.set_xlabel("Epoch")
+//lossAxes.plot(trainLossResults)
+//
+//plt.show()
 
-let lossAxes = plt.subplot(2, 1, 2)
-lossAxes.set_ylabel("Loss")
-lossAxes.set_xlabel("Epoch")
-lossAxes.plot(trainLossResults)
+// Testing dataset
+let testDataFilename = "iris_test.csv"
+download(from: "http://download.tensorflow.org/data/iris_test.csv", to: testDataFilename)
 
-plt.show()
+let testDataset: Dataset<IrisBatch> = Dataset(
+    contentsOfCSVFile: testDataFilename, hasHeader: true,
+    featureColumns: [0, 1, 2, 3], labelColumns: [4]
+).batched(batchSize)
+
+for testBatch in testDataset {
+    let logits = model(testBatch.features)
+    let predictions = logits.argmax(squeezingAxis: 1)
+    print("Test batch accuracy: \(accuracy(predictions: predictions, truths: testBatch.labels))")
+}
+
+let firstTestBatch = testDataset.first!
+let firstTestBatchLogits = model(firstTestBatch.features)
+let firstTestBatchPredictions = firstTestBatchLogits.argmax(squeezingAxis: 1)
+
+print(firstTestBatchPredictions)
+print(firstTestBatch.labels)
