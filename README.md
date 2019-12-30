@@ -1,3 +1,7 @@
+# Swift for Tensorflow Practice
+
+Based on [Model training walkthrough  |  Swift for TensorFlow](https://www.tensorflow.org/swift/tutorials/model_training_walkthrough) but adjusted to work inside Xcode.
+
 ## Running Swift for Tensorflow via xcrun
 
 1. Install Swift for Tensorflow from [here](https://github.com/tensorflow/swift/blob/master/Installation.md).
