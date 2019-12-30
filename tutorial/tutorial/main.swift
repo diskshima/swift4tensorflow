@@ -185,3 +185,17 @@ let firstTestBatchPredictions = firstTestBatchLogits.argmax(squeezingAxis: 1)
 
 print(firstTestBatchPredictions)
 print(firstTestBatch.labels)
+
+// Unlabeled dataset
+let unlabledDataset: Tensor<Float> =
+    [[5.1, 3.3, 1.7, 0.5],
+     [5.9, 3.0, 4.2, 1.5],
+     [6.9, 3.1, 5.4, 2.1]]
+
+let unlabeledDatasetPredictions = model(unlabledDataset)
+
+for i in 0..<unlabeledDatasetPredictions.shape[0] {
+    let logits = unlabeledDatasetPredictions[i]
+    let classIdx = logits.argmax().scalar!
+    print("Example \(i) prediction: \(classNames[Int(classIdx)]) (\(softmax(logits)))")
+}
